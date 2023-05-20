@@ -11,7 +11,7 @@ data class Lr5Task(
     )
 
     data class InfluencedConfrontation(
-        val playersOpinions: List<Double>,
+        val playersOpinions: List<List<Int>>,
         val noInfluenceProbability: Double,
     )
 

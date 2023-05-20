@@ -9,10 +9,13 @@ class InformationConfrontation(
     var iterations = 0
         private set
 
-    fun perform() {
+    private var resultTrustMatrix = trustMatrix
+
+    fun perform(): SimpleMatrix {
         while (!allHaveSameOpinion()) {
             iterate()
         }
+        return resultTrustMatrix
     }
 
     private fun iterate() {
@@ -20,6 +23,7 @@ class InformationConfrontation(
         val x1 = trustMatrix.mult(x0)
         agents.forEachIndexed { index, agent -> agent.opinion = x1[index, 0] }
         iterations++
+        resultTrustMatrix = resultTrustMatrix.mult(trustMatrix)
     }
 
     private fun allHaveSameOpinion(): Boolean {

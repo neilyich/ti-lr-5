@@ -41,20 +41,26 @@ object FormattedPrinter {
         println()
     }
 
-    fun roundDouble(n: Double): String {
+    fun roundDouble(n: Double, roundIfInt: Boolean = true): String {
         val str = BigDecimal.valueOf(n).setScale(SCALE, RoundingMode.HALF_EVEN).toString()
         var lastNonZeroIndex = str.length - 1
         while (lastNonZeroIndex > 0 && str[lastNonZeroIndex] == '0') {
             lastNonZeroIndex--
         }
-        if (lastNonZeroIndex > 0 && str[lastNonZeroIndex] == '.') {
+        if (roundIfInt && lastNonZeroIndex > 0 && str[lastNonZeroIndex] == '.') {
             lastNonZeroIndex--
         }
-        return str.substring(0, lastNonZeroIndex + 1)
+        val result = str.substring(0, lastNonZeroIndex + 1)
+        val pointIndex = result.lastIndexOf('.')
+        if (pointIndex < 0) {
+            return result
+        }
+        val scale = result.length - 1 - pointIndex
+        return result + "0".repeat(SCALE - scale)
     }
 
     private fun formatDouble(n: Double, width: Int): String {
-        val str = roundDouble(n)
+        val str = roundDouble(n, false)
         return " ".repeat(max(0, width - str.length)) + str
     }
 

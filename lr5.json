@@ -1,16 +1,19 @@
 {
   "seed": 41,
-  "agentsCount": 10,
-  "opinionsRange": {
-    "minValue": 0,
+  "agentsCount": 10, // число агентов
+  "opinionsRange": { // диапазон мнений агентов
+    "minValue": -100,
     "maxValue": 100
   },
   "maxEpsilon": 0.0001,
   "influencedConfrontation": {
-    "playersOpinions": [0, 100],
-    "noInfluenceProbability": 0.5
+    "playersOpinions": [ // мнения игроков
+      [-100, 0],
+      [0, 100]
+    ],
+    "noInfluenceProbability": 0.5 // вероятность того, что агент не будет подвержен влянию игрока
   },
   "formatting": {
-    "scale": 3
+    "scale": 3 // число знаков после запятой при выводе дробных чисел
   }
 }
